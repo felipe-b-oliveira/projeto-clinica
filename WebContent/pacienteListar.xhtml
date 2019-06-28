@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="modelo.xhtml">
+	<ui:define name="titulo">#{msgs.tituloListar}</ui:define>
+
+	<ui:define name="botoes">
+		<p:commandButton ajax="false" immediate="true"
+			action="#{pacienteMB.acaoAbrirInclusao}" value="#{msgs.novoPaciente}" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<p:confirmDialog global="true" showEffect="bounce"
+			hideEffect="explode">
+			<p:commandButton value="Sim" type="button"
+				styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			<p:commandButton value="Não" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		</p:confirmDialog>
+
+		<br />
+		<p:dataTable id="tabela" value="#{pacienteMB.pacientes}" var="pac"
+			rowHover="true">
+
+			<f:facet name="header">#{msgs.tituloListar}</f:facet>
+
+			<p:column>
+				<f:facet name="header">#{msgs.opcoes}:</f:facet>
+				<p:commandLink value="#{msgs.alterarPaciente}"
+					action="#{pacienteMB.acaoAbrirAlteracao(pac.idPaciente)}" />
+
+				<p:commandLink value="#{msgs.excluirPaciente}"
+					action="#{pacienteMB.acaoExcluir(pac.idPaciente)}">
+					<p:confirm header="Confirmação"
+						message="Deseja excluir o paciente? [#{pac.nome}]?"
+						icon="ui-icon-alert" />
+				</p:commandLink>
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">#{msgs.idPaciente}</f:facet>
+				<h:outputText value="#{pac.idPaciente}"></h:outputText>
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">#{msgs.nomePaciente}</f:facet>
+				<h:outputText value="#{pac.nome}"></h:outputText>
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">#{msgs.rgPaciente}</f:facet>
+				<h:outputText value="#{pac.rg}"></h:outputText>
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">#{msgs.sexoPaciente}</f:facet>
+				<h:outputText value="#{pac.sexo}"></h:outputText>
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">#{msgs.dataNascPaciente}</f:facet>
+				<h:outputText value="#{pac.dataNasc}"></h:outputText>
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">#{msgs.telefonePaciente}</f:facet>
+				<h:outputText value="#{pac.telefone}"></h:outputText>
+			</p:column>
+
+		</p:dataTable>
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="modelo.xhtml">
+	<ui:define name="titulo">#{msgs.tituloEditar}</ui:define>
+
+	<ui:define name="conteudo">
+		<h:inputHidden id="idPaciente"
+			value="#{pacienteMB.paciente.idPaciente}" />
+
+		<p:panelGrid columns="2">
+			<p:outputLabel value="#{msgs.idPaciente} " />
+			<h:outputText value="#{pacienteMB.paciente.idPaciente}" />
+
+			<p:outputLabel for="nomePaciente" value="#{msgs.nomePaciente} " />
+
+			<h:panelGroup>
+				<p:inputText id="nome" value="#{pacienteMB.paciente.nome}" size="40"
+					maxlength="100" required="true">
+					<f:validateLength minimum="10" maximum="120" />
+					<p:ajax event="keyup" process="nome" update="conta nome"
+						listener="#{pacienteMB.caixaAlta}" immediate="true" />
+				</p:inputText>
+				<h:outputText id="conta" value=" Letras: #{pacienteMB.contador}" />
+			</h:panelGroup>
+
+			<p:outputLabel for="rg" value="#{msgs.rgPaciente} " />
+			<p:inputMask id="rg" value="#{msgs.rgPaciente}" mask="99.999.999-9"
+				required="true" />
+
+			<p:outputLabel for="sexo" value="#{msgs.sexoPaciente} " />
+			<p:selectOneRadio id="sexo" value="#{msgs.sexoPaciente}">
+				<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+				<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+			</p:selectOneRadio>
+
+			<p:outputLabel for="dataNasc" value="#{msgs.dataNascPaciente} " />
+			<p:calendar id="dataNasc" value="#{calendarView.date9}"
+				pattern="dd-MM-yyyy" mask="true" />
+
+			<p:outputLabel for="telefone" value="#{msgs.telefonePaciente} " />
+			<p:inputMask id="telefone" value="#{maskView.phone}"
+				mask="(99) 9-9999-9999" required="true" />
+
+			<p:outputLabel for="dataConsulta" value="#{msgs.dataConsulta}: " />
+			<p:calendar id="dataConsulta" value="#{pacienteMB.paciente.consulta}"
+				pattern="dd-MM-yyyy" mask="true" />
+
+			<p:outputLabel for="horaConsulta" value="#{msgs.horaConsulta}: " />
+			<p:calendar id="horaConsulta" value="#{pacienteMB.paciente.consulta}"
+				pattern="dd-MM-yyyy" mask="true" />
+
+			<br />
+
+			<h:outputText value="" />
+			<h:panelGroup>
+				<p:commandButton ajax="false" action="#{pacienteMB.acaoSalvar}"
+					value="#{msgs.botaoSalvar} " />
+				<p:commandButton ajax="false" action="#{pacienteMB.acaoListar}"
+					value="#{msgs.botaoCancelar} " immediate="true" />
+			</h:panelGroup>
+		</p:panelGrid>
+
+	</ui:define>
+
+</ui:composition>
+</html>

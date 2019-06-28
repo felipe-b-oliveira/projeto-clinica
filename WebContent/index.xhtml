@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="modelo.xhtml">
+	<ui:define name="titulo">#{msgs.tituloAutenticacao}</ui:define>
+
+	<ui:define name="conteudo">
+
+		<p:panelGrid columns="2">
+			<p:outputLabel for="login" value="#{msgs.campoUsuario} " />
+			<p:inputText id="login" value="#{loginMB.login}" required="true" />
+
+			<p:outputLabel for="senha" value="#{msgs.campoSenha} " />
+			<p:password id="senha" value="#{loginMB.senha}" required="true" />
+
+			<h:outputText value="" />
+			<p:commandButton ajax="false" action="#{loginMB.acaoAutenticar}"
+				value="#{msgs.botaoAutenticar}" />
+		</p:panelGrid>
+
+	</ui:define>
+	
+</ui:composition>
+</html>
